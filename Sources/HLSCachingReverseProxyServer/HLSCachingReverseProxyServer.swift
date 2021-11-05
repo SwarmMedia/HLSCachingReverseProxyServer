@@ -189,6 +189,14 @@ open class HLSCachingReverseProxyServer {
   }
 
   private func cacheKey(for resourceURL: URL) -> String {
-    return resourceURL.absoluteString.data(using: .utf8)!.base64EncodedString()
+    let data = resourceURL.absoluteString.data(using:.utf8)!;
+    
+    if #available(iOS 13.0, *) {
+        // Hash URLs, to make sure they aren't too long for PinCache.
+        return SHA256.hash(data: data).description;
+    } else {
+        // Fallback on earlier versions.
+        return resourceURL.absoluteString.data(using: .utf8)!.base64EncodedString()
+    };
   }
 }
