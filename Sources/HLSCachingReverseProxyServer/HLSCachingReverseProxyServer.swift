@@ -1,5 +1,6 @@
 import GCDWebServer
 import PINCache
+import CryptoKit
 
 open class HLSCachingReverseProxyServer {
   static let originURLKey = "__hls_origin_url"
